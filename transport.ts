@@ -81,4 +81,12 @@ export class ACPClient {
       this.process.stdin.flush();
     });
   }
+
+  // 6. Send a notification (no id, fire-and-forget)
+  public sendNotification(method: string, params: any = {}): void {
+    const notification = { jsonrpc: "2.0", method, params };
+    const str = JSON.stringify(notification) + "\n";
+    this.process.stdin.write(new TextEncoder().encode(str));
+    this.process.stdin.flush();
+  }
 }
