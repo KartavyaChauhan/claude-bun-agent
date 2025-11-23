@@ -8,8 +8,9 @@ export class ACPClient {
   constructor(url: string) {
     this.ws = new WebSocket(url);
 
-    this.ws.on("message", (data: WebSocket.Data) => {
-      const msg = JSON.parse(data.toString());
+    this.ws.on("message", (data: any) => {
+      const str = typeof data === "string" ? data : data.toString();
+      const msg = JSON.parse(str);
       if (msg.id && this.handlers.has(msg.id)) {
         this.handlers.get(msg.id)!(msg);
       } else {
