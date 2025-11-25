@@ -3,9 +3,13 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "start": "npx tsx index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/ws": "^8.18.1"
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.7.0"
   },
   "peerDependencies": {
     "typescript": "^5"

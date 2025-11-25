@@ -1,30 +1,18 @@
-// session-manager.ts
-import { file, write } from "bun";
+// Session persistence for resumable sessions
+import { readFile, writeFile, access } from "fs/promises";
+import { constants } from "fs";
 
 const SESSION_FILE = ".claude-session.json";
 
-interface SessionData {
-  sessionId: string;
-  lastActive: string;
-}
+interface SessionData { sessionId: string; lastActive: string; }
 
 export async function loadSession(): Promise<SessionData | null> {
-  const f = file(SESSION_FILE);
-  if (await f.exists()) {
-    try {
-      const data = await f.json();
-      return data as SessionData;
-    } catch (e) {
-      return null; // File might be corrupt, start fresh
-    }
-  }
-  return null;
+  try {
+    await access(SESSION_FILE, constants.F_OK);
+    return JSON.parse(await readFile(SESSION_FILE, "utf-8"));
+  } catch { return null; }
 }
 
 export async function saveSession(sessionId: string) {
-  const data: SessionData = {
-    sessionId,
-    lastActive: new Date().toISOString(),
-  };
-  await write(SESSION_FILE, JSON.stringify(data, null, 2));
+  await writeFile(SESSION_FILE, JSON.stringify({ sessionId, lastActive: new Date().toISOString() }, null, 2));
 }
