@@ -152,6 +152,10 @@ This project was developed iteratively with the following milestones:
 6. **Streaming & UI** - Real-time responses with beautiful terminal UI
 7. **Error Handling** - Quota detection and model fallback system
 
+### Key Challenges
+
+Key challenges included: (1) decoding the undocumented ACP protocol format (switched from LSP framing to NDJSON), (2) getting the correct authentication message structure with nested `authMethod` object, (3) handling Gemini's strict rate limits with automatic model fallback, and (4) ensuring Windows/PowerShell compatibility by converting from Bun to Node.js APIs.
+
 See [git log](https://github.com/KartavyaChauhan/claude-bun-agent/commits/main) for detailed commit history.
 
 ---
