@@ -199,16 +199,6 @@ In accordance with the assignment's AI Policy, this project was developed with e
 - **Error Handling**: Identifying edge cases like "empty response" errors and handling them gracefully
 - **Terminal UI**: Integration with `@clack/prompts` for spinners, text input, and confirm dialogs
 
-### Manual Work
-
-The following were done manually by the developer:
-
-- **Architectural Decisions**: Choosing NDJSON over LSP framing, selecting Gemini CLI over Claude Code
-- **Debugging & Testing**: Extensive trial-and-error to get the correct ACP handshake working
-- **Integration**: Combining all components into a cohesive working agent
-- **Code Review**: All AI-generated code was reviewed, tested, and modified as needed
-- **Git History**: Commits were made incrementally to show real development progression
-
 ### Transparency Note
 
 This disclosure is provided to give reviewers a complete and honest view of the development process. AI tools significantly accelerated development, but the developer takes full responsibility for:
@@ -227,8 +217,3 @@ MIT
 
 ---
 
-## 🙏 Acknowledgments
-
-- [Gemini CLI](https://github.com/google-gemini/gemini-cli) - For ACP support
-- [@clack/prompts](https://github.com/bombshell-dev/clack) - Beautiful terminal UI
-- [Zed claude-code-acp](https://github.com/zed-industries/claude-code-acp) - ACP adapter reference
