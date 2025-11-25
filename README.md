@@ -179,9 +179,45 @@ The agent processes `session/update` messages with different update types:
 
 ---
 
-## 🤝 AI Disclosure
+## 🤝 AI Use Disclosure
 
-This project was developed with AI assistance (GitHub Copilot / Claude). All AI-generated code was reviewed, tested, and modified as needed. The developer takes full responsibility for the final implementation.
+In accordance with the assignment's AI Policy, this project was developed with extensive AI assistance. Full transparency is provided below:
+
+### Tools Used
+
+| AI Tool | Usage |
+|---------|-------|
+| **GitHub Copilot (Claude)** | Primary assistant for architecture design, debugging ACP protocol issues, implementing streaming handlers, and code refactoring |
+| **Google Gemini** | Used to understand the undocumented `--experimental-acp` protocol details and debug JSON-RPC handshake errors |
+| **VS Code Copilot** | Used for scaffolding TypeScript boilerplate, generating TUI logic with `@clack/prompts`, and refining stream buffering logic |
+
+### AI-Assisted Components
+
+- **ACP Protocol Implementation**: AI helped decode the correct message format for `initialize`, `authenticate`, and `session/new` as documentation was limited
+- **Streaming Response Handling**: The `session/update` message parsing and real-time display logic
+- **Model Fallback System**: Quota error detection and automatic model switching
+- **Error Handling**: Identifying edge cases like "empty response" errors and handling them gracefully
+- **Terminal UI**: Integration with `@clack/prompts` for spinners, text input, and confirm dialogs
+
+### Manual Work
+
+The following were done manually by the developer:
+
+- **Architectural Decisions**: Choosing NDJSON over LSP framing, selecting Gemini CLI over Claude Code
+- **Debugging & Testing**: Extensive trial-and-error to get the correct ACP handshake working
+- **Integration**: Combining all components into a cohesive working agent
+- **Code Review**: All AI-generated code was reviewed, tested, and modified as needed
+- **Git History**: Commits were made incrementally to show real development progression
+
+### Transparency Note
+
+This disclosure is provided to give reviewers a complete and honest view of the development process. AI tools significantly accelerated development, but the developer takes full responsibility for:
+- Understanding how all code works
+- Making architectural decisions
+- Ensuring the final product meets requirements
+- Any bugs or issues in the implementation
+
+The use of AI was explicitly allowed per the assignment guidelines.
 
 ---
 
