@@ -10,16 +10,20 @@ A TypeScript coding agent that communicates with **Gemini CLI** over the **Agent
 
 ## ✨ Features
 
-| Feature | Status | Description |
-|---------|--------|-------------|
-| **Send Messages** | ✅ | Send prompts to Gemini via ACP `session/prompt` |
-| **Receive Messages** | ✅ | Handle responses with streaming `session/update` events |
-| **Tool Approval** | ✅ | Interactive confirm dialogs for tool execution |
-| **Set Model** | ✅ | Configurable model with `--model` flag + auto-fallback |
-| **Workspace Directory** | ✅ | Set via `session/new` with `cwd` parameter |
-| **Create Files** | ✅ | Handle `fs/write_text_file`, `create_file`, `edit_file` |
-| **Read Files** | ✅ | Handle `fs/read_text_file` tool calls |
-| **Run Commands** | ✅ | Execute shell commands via `terminal/execute` |
+### Required Capabilities
+
+| # | Requirement | Status | Implementation |
+|---|-------------|--------|----------------|
+| 1 | **Send messages** | ✅ | `session/prompt` sends user prompts to Gemini |
+| 2 | **Receive messages** | ✅ | `session/update` handles streaming responses |
+| 3 | **Approve/reject tool calls** | ✅ | Gemini CLI auto-approves via `--approval-mode default`; `handleToolExecution()` implemented for manual approval |
+| 4 | **Set model** | ✅ | `--model` flag with 5-model fallback on quota errors |
+| 4 | **Set workspace directory** | ✅ | `session/new` with `cwd` parameter |
+| 5 | **Read files** | ✅ | Gemini CLI executes `read_file` tool internally |
+| 5 | **Create/edit files** | ⚠️ | Gemini CLI attempts `write_file` but may hang (experimental ACP limitation) |
+| 6 | **Run shell commands** | ✅ | Gemini CLI executes shell commands; `handleToolExecution()` implemented |
+
+> **Note on Tool Execution:** With Gemini CLI's `--experimental-acp` mode, tool calls (read_file, list_directory, write_file, shell commands) are executed internally by Gemini CLI and auto-approved. The agent displays tool status via `session/update` notifications. The `handleToolExecution()` function with interactive `confirm()` dialog is implemented for use with ACP adapters that delegate tool execution to the client.
 
 ### 🌟 Extra Credit
 
@@ -154,7 +158,7 @@ This project was developed iteratively with the following milestones:
 
 ### Key Challenges
 
-Key challenges included: (1) decoding the undocumented ACP protocol format (switched from LSP framing to NDJSON), (2) getting the correct authentication message structure with nested `authMethod` object, (3) handling Gemini's strict rate limits with automatic model fallback, and (4) ensuring Windows/PowerShell compatibility by converting from Bun to Node.js APIs.
+Key challenges included: (1) decoding the undocumented ACP protocol format (switched from LSP framing to NDJSON), (2) getting the correct authentication message structure with nested `authMethod` object, (3) handling Gemini's strict rate limits with automatic model fallback, (4) ensuring Windows/PowerShell compatibility by converting from Bun to Node.js APIs, and (5) file write/create operations hanging due to Gemini CLI's experimental ACP mode not completing `write_file` tool calls reliably.
 
 See [git log](https://github.com/KartavyaChauhan/claude-bun-agent/commits/main) for detailed commit history.
 

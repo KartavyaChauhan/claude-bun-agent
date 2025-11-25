@@ -28,7 +28,7 @@ function getServerArgs(model: string): string[] {
     "--output-format",
     "stream-json",
     "--approval-mode",
-    "auto_edit",
+    "default",
     "--model",
     model,
   ];
